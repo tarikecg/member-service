@@ -3,7 +3,7 @@ Operations for maintaining member details
 
 ## API Swagger/Open API Documentation
 
-http://<host>:8080/swagger-ui.html
+http://host:8080/swagger-ui.html
 
 Screenshot of API documentation
 ![alt text](https://github.com/tarikecg/member-service/blob/master/docs/Swagger-ui1.png?raw=true)
