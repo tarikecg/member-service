@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  member-mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=carsales
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    ports:
+      - 3306:3306
+    volumes:
+      - data-volume:/var/lib/mysql
+      - ./resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  member-service:
+    image: carsguide/member-service:latest
+    depends_on:
+      - member-mysql
+    ports:
+      - 8090:8080
+    environment:
+      - DATABASE_HOST=member-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=admin
+      - DATABASE_NAME=carsales
+      - DATABASE_PORT=3306
+
+  member-redis:
+    image: "redis:alpine"
+
+    command: redis-server --requirepass admin
+
+    ports:
+      - "6379:6379"
